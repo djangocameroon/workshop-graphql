@@ -1,7 +1,29 @@
 import graphene
+from graphql import GraphQLError
 
 from graphql_api.models import Movie
 from graphql_api.schemas.movie import MovieSchema, MovieSchemaInput
+
+
+class MovieQuery(graphene.ObjectType):
+    movies = graphene.List(MovieSchema)
+    
+    get_movie = graphene.Field(
+        MovieSchema, 
+        movie_uuid=graphene.String(required=True)
+    )
+
+    def resolve_movies(self, info):
+        return Movie.objects.all()
+    
+    def resolve_get_movie(self, info, movie_uuid: str):
+        try:
+            existing_movie = Movie.objects.get(
+                uuid=movie_uuid
+            )
+        except:
+            raise GraphQLError("Movie not found")
+        return existing_movie
 
 
 class CreateMovieMutation(graphene.Mutation):

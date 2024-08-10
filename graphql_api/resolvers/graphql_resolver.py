@@ -1,15 +1,17 @@
 import graphene
 
+from graphql_api.resolvers.movie_resolver import CreateMovieMutation
+
 
 class GraphQLQuery(graphene.ObjectType):
-    pass
-
+    me = graphene.String()
+    
+    def resolve_me(self, info):
+        return "Hello, World!"
 
 
 class GraphQLMutation(graphene.ObjectType):
-    pass
+    create_movie = CreateMovieMutation.Field()
 
 
-graphql_schema = graphene.Schema(
-    query=GraphQLQuery, mutation=GraphQLMutation
-)
+graphql_schema = graphene.Schema(query=GraphQLQuery, mutation=GraphQLMutation)

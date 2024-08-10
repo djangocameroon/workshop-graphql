@@ -12,6 +12,6 @@ class MovieSchema(DjangoObjectType):
 
 class MovieSchemaInput(graphene.InputObjectType):
     title = graphene.String()
-    release_date = graphene.Date()
+    release_date = graphene.Date(required=False, default_value=None)
     duration = graphene.Int()
     kind = graphene.String()

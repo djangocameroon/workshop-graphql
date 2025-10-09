@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Adding created app
-    "graphql_api",
-    # Adding graphene_django app
     "graphene_django",
+    "graphql_api",
 ]
+
+GRAPHENE = {
+    "SCHEMA": "graphql_api.schema.schema"
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
